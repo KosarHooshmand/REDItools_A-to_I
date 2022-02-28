@@ -8,7 +8,7 @@
 
 * REDItools installation:
 
-`git clone [REDItools](https://github.com/BioinfoUNIBA/REDItools)`
+git clone [REDItools](https://github.com/BioinfoUNIBA/REDItools)
 
 `cd REDItools/`
 
@@ -40,21 +40,21 @@ wget [samtools](https://github.com/samtools/samtools/releases/download/1.9/samto
 
 wget [bcftools](https://github.com/samtools/bcftools/releases/download/1.9/bcftools-1.9.tar.bz2) 
 
-tar -vxjf bcftools-1.9.tar.bz2
+`tar -vxjf bcftools-1.9.tar.bz2`
 
-cd bcftools-1.9
+`cd bcftools-1.9`
 
-make
+`make`
 
 * bedtools version 2.28.0 installation
 
 wget [bedtools](https://github.com/arq5x/bedtools2/releases/download/v2.28.0/bedtools-2.28.0.tar.gz)
 
-tar -zxvf bedtools-2.28.0.tar.gz
+`tar -zxvf bedtools-2.28.0.tar.gz`
 
-cd bedtools2
+`cd bedtools2`
 
-make
+`make`
 
 # :pushpin: Downloading and organizing required data
 
