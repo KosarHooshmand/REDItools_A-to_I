@@ -156,11 +156,11 @@ wget [GMAP-GSNAP](http://research-pub.gene.com/gmap/src/gmap-gsnap-2021-08-25.ta
 
 # :writing_hand: RNA Editing Detection 
   
-## Detect all potential DNA–RNA variants
+## :one: Detect all potential DNA–RNA variants
 
 `python2 ~/Apps/REDItools/main/REDItoolDnaRna.py -i ../STAR_Alignment/*.bam -j ../BWA-mem2_Alignment/*.bam -o NEW_RNAEdits_picard -f ~/Ref/GRCh38.p13.genome.fa -t10 -c1,1 -m30,255 -v1 -q30,30 -e -n0.0 -N0.0 -u -l -p -s2 -g2 -S`
 
-## Exclude invariant positions as well as positions not supported by ≥10 WGS reads:
+## :two: Exclude invariant positions as well as positions not supported by ≥10 WGS reads:
 
   `awk '{FS="\t"} {if ($8!="-" && $10>=10 && $13=="-") print}' outTable_443931662 > outTable_443931662.out`
 
