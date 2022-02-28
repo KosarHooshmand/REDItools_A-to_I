@@ -157,7 +157,7 @@ make check
 
 make install
 
-export PATH=/home/kosar/Apps/gmap-gsnap-2021-08-25:$PATh
+export PATH=~/Apps/gmap-gsnap-2021-08-25:$PATh
 
 
 ### If you have a GTF file, you can use the included programs gtf_splicesites and gtf_introns like this:
@@ -169,7 +169,7 @@ cat <gtf file> | /gmap-2021-08-25/util/gtf_introns > foo.introns
 
 ### Second, if you retrieve an alignment tracks from UCSC:
 
- ftp://hgdownload.cse.ucsc.edu/goldenPath/hg18/database/ene.txt.gz
+ftp://hgdownload.cse.ucsc.edu/goldenPath/hg18/database/ene.txt.gz
 
 ftp://hgdownload.cse.ucsc.edu/goldenPath/hg19/database/refGene.txt.gz
 
