@@ -14,7 +14,7 @@ python setup.py install
 
 ## Installatoion of associated packages:
 
-## Pblat installation. need to be version 0.6 and 0.7
+## Pblat version 0.6 and 0.7 installation:
 
 git clone [Pblat](https://github.com/icebert/pblat.git)
 
@@ -28,7 +28,7 @@ pip install pysam==0.17
 
 ## samtools version 1.9 installation:
 
-wget  [samtools](https://github.com/samtools/samtools/releases/download/1.9/samtools-1.9.tar.bz2) 
+wget [samtools](https://github.com/samtools/samtools/releases/download/1.9/samtools-1.9.tar.bz2) 
 
 tar -vxjf samtools-1.9.tar.bz2
 
