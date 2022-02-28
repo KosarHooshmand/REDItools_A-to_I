@@ -4,15 +4,15 @@
 ![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 
-## REDItools-Installation
+## Installatoion of REDItools and the associated packages:
+
+* REDItools installation:
 
 git clone [REDItools](https://github.com/BioinfoUNIBA/REDItools)
 
 cd REDItools/
 
 python setup.py install
-
-## Installatoion of associated packages:
 
 * Pblat version 0.6 and 0.7 installation:
 
@@ -56,7 +56,7 @@ cd bedtools2
 
 make
 
-# 	:pushpin: Downloading and organizing required data
+# :pushpin: Downloading and organizing required data
 
 * Index the reference genome for REDItools
 
