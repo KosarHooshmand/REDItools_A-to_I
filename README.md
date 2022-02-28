@@ -1,6 +1,7 @@
 # ⚙️Technologies & Tools
-![](https://img.shields.io/badge/OS-Linux-informational?style=flat&logo=<#FF6000>&logoColor=white&color=2bbc8a)
+
 ![](https://img.shields.io/badge/Shell-Bash-informational?style=flat&logo=<#FF6000>&logoColor=white&color=2bbc8a)
+![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 
 # REDItools-Installation
