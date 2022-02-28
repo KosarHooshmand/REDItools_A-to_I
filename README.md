@@ -256,9 +256,9 @@ mawk -F" " '{split($2,a,":"); split(a[2],b,"."); if (b[1]>b[3]) print a[1],b[3],
   
 `python2.7 ~/Apps/REDItools/main/REDItoolDnaRna.py -s 2 -g 2 -S -t 4 -i ../STAR_Alignment/CGND-HRA-00072_AGCACCTC_ACB20PANXX_L005_001_marked_duplicates.bam -f ~/Ref/GRCh38.p13.genome.fa -c 10,10 -q 30,30 -m 255,255 -O 5,5 -p -u -a 11-6 -l -v 3 -n 0.1 -e -T RNA72-DNA191-pos.sorted.gff.gz -w ../REDItools2/Splicesites/mysplicesites.sss -k ../REDItools2/Genome_hg38/nochr --reads -R --addP -o RNA72-DNA191-first`
 
-## Launch pblat on RNAseq reads harboring reference mismatches from Step 22 and select multimapping reads:
+## Launch pblat on RNAseq reads harboring reference mismatches from Step 22 and select multi-mapping reads:
   
-`~/Apps/pblat/pblat -t=dna -q=rna -stepSize=5 -repMatch=2253 -minScore=20 -minIdentity=0 ~/Ref/GRCh38.p13.genome.fa first/DnaRna_51144481/outReads_51144481 reads.psl
+`~/Apps/pblat/pblat -t=dna -q=rna -stepSize=5 -repMatch=2253 -minScore=20 -minIdentity=0 ~/Ref/GRCh38.p13.genome.fa first/DnaRna_51144481/outReads_51144481 reads.psl
 python2 ~/Apps/REDItools/accessory/readPsl.py reads.psl badreads.txt`
 
 ## Extract RNAseq reads harboring reference mismatches from Step 22 and remove duplicates:
