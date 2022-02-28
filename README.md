@@ -1,7 +1,7 @@
 # ⚙️Technologies & Tools
 ![](https://img.shields.io/badge/OS-Linux-informational?style=flat&logo=<#FF6000>&logoColor=white&color=2bbc8a)
 ![](https://img.shields.io/badge/Shell-Bash-informational?style=flat&logo=<#FF6000>&logoColor=white&color=2bbc8a)
-![](https://img.shields.io/badge/Package-python-informational?style=flat&logo=<#FF6000>&logoColor=white&color=2bbc8a)
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 
 # REDItools-Installation
 
@@ -57,7 +57,7 @@ make
 
 ##########################################################################################################
 
-# Downloading and organizing required data
+# 🔗 Downloading and organizing required data
 
 ##  ● Index the reference genome for REDItools
 
@@ -186,6 +186,6 @@ gunzip -c refGene.txt.gz | /gmap-2021-08-25/util/psl_introns -s 1 > foo.introns
 
 mawk -F" " '{split($2,a,":"); split(a[2],b,"."); if (b[1]>b[3]) print a[1],b[3],b[1],toupper(substr($3,1,1)),"-"; else print a[1],b[1],b[3],toupper(substr($3,1,1)),"+"}' foo.splicesites > mysplicesites.ss
   
+##########################################################################################################
   
-  
-  
+# 🔗 
