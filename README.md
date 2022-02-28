@@ -14,7 +14,7 @@ python setup.py install
 
 ## Installatoion of associated packages:
 
-## Pblat version 0.6 and 0.7 installation:
+* Pblat version 0.6 and 0.7 installation:
 
 git clone [Pblat](https://github.com/icebert/pblat.git)
 
@@ -22,11 +22,11 @@ cd pblat/
 
 make
 
-## pysam version 0.17 installation:
+* pysam version 0.17 installation:
 
 pip install pysam==0.17
 
-## samtools version 1.9 installation:
+* samtools version 1.9 installation:
 
 wget [samtools](https://github.com/samtools/samtools/releases/download/1.9/samtools-1.9.tar.bz2) 
 
@@ -36,7 +36,7 @@ cd samtools-1.9
 
 make
 
-## bcftools version 1.9 installation:
+* bcftools version 1.9 installation:
 
 wget [bcftools](https://github.com/samtools/bcftools/releases/download/1.9/bcftools-1.9.tar.bz2) 
 
@@ -46,7 +46,7 @@ cd bcftools-1.9
 
 make
 
-## bedtools version 2.28.0 installation
+* bedtools version 2.28.0 installation
 
 wget [bedtools](https://github.com/arq5x/bedtools2/releases/download/v2.28.0/bedtools-2.28.0.tar.gz)
 
