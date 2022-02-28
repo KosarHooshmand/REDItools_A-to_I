@@ -56,9 +56,7 @@ cd bedtools2
 
 make
 
-##########################################################################################################
-
-# :writing_hand: Downloading and organizing required data
+# 	:pushpin: Downloading and organizing required data
 
 ##  ● Index the reference genome for REDItools
 
@@ -178,7 +176,6 @@ gunzip -c refGene.txt.gz | /gmap-2021-08-25/util/psl_splicesites -s 1 > foo.spli
 gunzip -c refGene.txt.gz | /gmap-2021-08-25/util/psl_introns -s 1 > foo.introns
 
 mawk -F" " '{split($2,a,":"); split(a[2],b,"."); if (b[1]>b[3]) print a[1],b[3],b[1],toupper(substr($3,1,1)),"-"; else print a[1],b[1],b[3],toupper(substr($3,1,1)),"+"}' foo.splicesites > mysplicesites.ss
-  
-##########################################################################################################
+
   
 # 🔗 
