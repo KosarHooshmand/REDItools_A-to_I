@@ -4,7 +4,7 @@
 ![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 
-# REDItools-Installation
+## REDItools-Installation
 
 git clone [REDItools](https://github.com/BioinfoUNIBA/REDItools)
 
@@ -12,7 +12,7 @@ cd REDItools/
 
 python setup.py install
 
-# Installatoion of associated packages:
+## Installatoion of associated packages:
 
 ## Pblat installation. need to be version 0.6 and 0.7
 
