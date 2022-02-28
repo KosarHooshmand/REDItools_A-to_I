@@ -38,7 +38,7 @@ make
 
 ## bcftools version 1.9 installation:
 
-wget https://github.com/samtools/bcftools/releases/download/1.9/bcftools-1.9.tar.bz2
+wget [bcftools](https://github.com/samtools/bcftools/releases/download/1.9/bcftools-1.9.tar.bz2) 
 
 tar -vxjf bcftools-1.9.tar.bz2
 
@@ -48,7 +48,7 @@ make
 
 ## bedtools version 2.28.0 installation
 
-wget https://github.com/arq5x/bedtools2/releases/download/v2.28.0/bedtools-2.28.0.tar.gz
+wget [bedtools](https://github.com/arq5x/bedtools2/releases/download/v2.28.0/bedtools-2.28.0.tar.gz)
 
 tar -zxvf bedtools-2.28.0.tar.gz
 
@@ -71,13 +71,7 @@ grep ">" ~/Ref/GRCh38.p13.genome.fa  | awk '{if (substr($1,1,3)==">GL") print $2
 
 ##  ● Download and unzip hg38 RefSeq annotations in .bed format for strand detection
 
-wget https://sourceforge.net/projects/rseqc/files/BED/Human_Homo_sapiens/hg38_RefSeq.bed.gz
-
-gunzip hg38_RefSeq.bed.gz
-
-##  ● Download and unzip hg38 RefSeq annotations in .txt format for Gene symbols
-
-wget -c -O hg38.refGene.txt.gz http://hgdownload.soe.ucsc.edu/goldenPath/hg38/database/refGene.txt.gz
+wget -c -O [RefSeq](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/database/refGene.txt.gz)
 
 gunzip hg38.refGene.txt.gz
 
@@ -89,7 +83,7 @@ sort -k1,1 -k4,4n hg38-RefGene.gtf > Sorted-hg38-RefGene.gtf
 
 ##  ● Prepare RepeatMasker annotations for REDItools
 
-wget http://hgdownload.soe.ucsc.edu/goldenPath/hg38/database/rmsk.txt.gz
+wget [rmsk](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/database/rmsk.txt.gz)
 
 awk '{OFS="\t"} {print $6,"rmsk_hg38",$12,$7+1,$8,".",$10,".","gene_id \""$11"\"; transcript_id \""$13"\";"}' rmsk.txt > rmsk38.gtf
 
@@ -101,7 +95,7 @@ tabix -p gff rmsk38.sorted.gtf.gz
 
 ##  ● Prepare dbSNP annotations for REDItools
 
-wget http://hgdownload.soe.ucsc.edu/goldenPath/hg38/database/snp151.txt.gz
+wget [dbSNP](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/database/snp151.txt.gz)
 
 awk '{OFS="\t"} {if ($11=="genomic" && $12=="single") print $2,"ucsc_snp151_hg38","snp",$4,$4,".",$7,".","gene_id \""$5"\"; transcript_id \""$5"\";"}' snp151.txt > snp151.gtf
 
@@ -113,7 +107,7 @@ tabix -p gff snp151.sorted.gtf.gz
 
 ##  ● Prepare REDIportal annotations for REDItools and extract recoding events
 
-wget http://srv00.recas.ba.infn.it/webshare/ATLAS/donwload/TABLE1_hg38.txt.gz
+wget [REDIprotal](http://srv00.recas.ba.infn.it/webshare/ATLAS/donwload/TABLE1_hg38.txt.gz)
 
 ### remove the header:
 
@@ -145,11 +139,9 @@ bgzip sorted-TABLE1_hg38_without.txt
 
 [GMAP-GSNAP]( https://github.com/juliangehring/GMAP-GSNAP)
 
-In case GMAT is a typo, GMAP and GSNAP can be found here:
-
 [gmap](http://research-pub.gene.com/gmap/) 
 
-wget http://research-pub.gene.com/gmap/src/gmap-gsnap-2021-08-25.tar.gz
+wget [GMAP-GSNAP](http://research-pub.gene.com/gmap/src/gmap-gsnap-2021-08-25.tar.gz)
 
 tar -xvzf gmap-gsnap-2021-08-25.tar.gz
 
