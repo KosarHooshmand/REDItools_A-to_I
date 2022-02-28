@@ -1,8 +1,8 @@
 # ⚙️Technologies & Tools
-
-![](https://img.shields.io/badge/Shell-Bash-informational?style=flat&logo=<#FF6000>&logoColor=white&color=2bbc8a)
+![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
 ![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![Shell Script](https://img.shields.io/badge/shell_script-%23121011.svg?style=for-the-badge&logo=gnu-bash&logoColor=white)
 
 ## Installatoion of REDItools and the associated packages:
 
