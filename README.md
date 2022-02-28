@@ -58,7 +58,7 @@ make
 
 ##########################################################################################################
 
-# 🔗 Downloading and organizing required data
+# :writing_hand: Downloading and organizing required data
 
 ##  ● Index the reference genome for REDItools
 
