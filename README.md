@@ -58,16 +58,16 @@ make
 
 # 	:pushpin: Downloading and organizing required data
 
-##  ● Index the reference genome for REDItools
+* Index the reference genome for REDItools
 
 ~/Apps/samtools-1.9/samtools faidx ~/Ref/GRCh38.p13.genome.fa
 
-##  ● Create the nochr file for REDItools
+* Create the nochr file for REDItools
 
 grep ">" ~/Ref/GRCh38.p13.genome.fa  | awk '{if (substr($1,1,3)==">GL") print $2}' > nochr1
 
 
-##  ● Download and unzip hg38 RefSeq annotations in .bed format for strand detection
+* Download and unzip hg38 RefSeq annotations in .bed format for strand detection
 
 wget -c -O [RefSeq](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/database/refGene.txt.gz)
 
@@ -79,7 +79,7 @@ cut -f 2- hg38.refGene.txt | genePredToGtf -utr -source=hg38_refseq file stdin h
 
 sort -k1,1 -k4,4n hg38-RefGene.gtf > Sorted-hg38-RefGene.gtf 
 
-##  ● Prepare RepeatMasker annotations for REDItools
+* Prepare RepeatMasker annotations for REDItools
 
 wget [rmsk](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/database/rmsk.txt.gz)
 
@@ -91,7 +91,7 @@ bgzip rmsk38.sorted.gtf
 
 tabix -p gff rmsk38.sorted.gtf.gz
 
-##  ● Prepare dbSNP annotations for REDItools
+* Prepare dbSNP annotations for REDItools
 
 wget [dbSNP](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/database/snp151.txt.gz)
 
@@ -103,7 +103,7 @@ bgzip snp151.sorted.gtf
 
 tabix -p gff snp151.sorted.gtf.gz
 
-##  ● Prepare REDIportal annotations for REDItools and extract recoding events
+* Prepare REDIportal annotations for REDItools and extract recoding events
 
 wget [REDIprotal](http://srv00.recas.ba.infn.it/webshare/ATLAS/donwload/TABLE1_hg38.txt.gz)
 
@@ -127,13 +127,13 @@ bgzip sorted_atlas38_recoding.gff
 
 tabix -p gff sorted_atlas38_recoding.gff.gz
 
-##  ● Prepare REDIportal annotations For REDItoolKnown.py
+* Prepare REDIportal annotations For REDItoolKnown.py
 
 sort -k1,1 -k2,2n TABLE1_hg38_without.txt > sorted-TABLE1_hg38_without.txt
 
 bgzip sorted-TABLE1_hg38_without.txt
 
-##  ● Prepare splice sites annotations for REDItools
+* Prepare splice sites annotations for REDItools
 
 [GMAP-GSNAP]( https://github.com/juliangehring/GMAP-GSNAP)
 
