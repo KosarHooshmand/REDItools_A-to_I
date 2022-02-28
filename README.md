@@ -149,7 +149,7 @@ tar -xvzf gmap-gsnap-2021-08-25.tar.gz
 
 cd gmap-gsnap-2021-08-25
 
-./configure --prefix /home/kosar/Apps 
+./configure --prefix ~/Apps 
 
 make 
 
