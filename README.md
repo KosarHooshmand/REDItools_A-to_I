@@ -51,22 +51,22 @@ make
 
 # Downloading and organizing required data
 
-## Index the reference genome for REDItools ●
+##  ● Index the reference genome for REDItools
 
 ~/Apps/samtools-1.9/samtools faidx ~/Ref/GRCh38.p13.genome.fa
 
-## Create the nochr file for REDItools ●
+##  ● Create the nochr file for REDItools
 
 grep ">" ~/Ref/GRCh38.p13.genome.fa  | awk '{if (substr($1,1,3)==">GL") print $2}' > nochr1
 
 
-## Download and unzip hg38 RefSeq annotations in .bed format for strand detection ●
+##  ● Download and unzip hg38 RefSeq annotations in .bed format for strand detection
 
 wget https://sourceforge.net/projects/rseqc/files/BED/Human_Homo_sapiens/hg38_RefSeq.bed.gz
 
 gunzip hg38_RefSeq.bed.gz
 
-## Download and unzip hg38 RefSeq annotations in .txt format for Gene symbols ●
+##  ● Download and unzip hg38 RefSeq annotations in .txt format for Gene symbols
 
 wget -c -O hg38.refGene.txt.gz http://hgdownload.soe.ucsc.edu/goldenPath/hg38/database/refGene.txt.gz
 
@@ -78,7 +78,7 @@ cut -f 2- hg38.refGene.txt | genePredToGtf -utr -source=hg38_refseq file stdin h
 
 sort -k1,1 -k4,4n hg38-RefGene.gtf > Sorted-hg38-RefGene.gtf 
 
-## Prepare RepeatMasker annotations for REDItools ●
+##  ● Prepare RepeatMasker annotations for REDItools
 
 http://hgdownload.soe.ucsc.edu/goldenPath/hg38/database/rmsk.txt.gz
 
@@ -90,7 +90,7 @@ bgzip rmsk38.sorted.gtf
 
 tabix -p gff rmsk38.sorted.gtf.gz
 
-## Prepare dbSNP annotations for REDItools ●
+##  ● Prepare dbSNP annotations for REDItools
 
 http://hgdownload.soe.ucsc.edu/goldenPath/hg38/database/snp151.txt.gz
 
@@ -102,11 +102,11 @@ bgzip snp151.sorted.gtf
 
 tabix -p gff snp151.sorted.gtf.gz
 
-## Prepare REDIportal annotations for REDItools and extract recoding events ●
+##  ● Prepare REDIportal annotations for REDItools and extract recoding events
 
 http://srv00.recas.ba.infn.it/webshare/ATLAS/donwload/TABLE1_hg38.txt.gz
 
-# remove the header:
+### remove the header:
 
 tail -n +2 TABLE1_hg38.txt > TABLE1_hg38_without.txt
 
@@ -126,7 +126,7 @@ bgzip sorted_atlas38_recoding.gff
 
 tabix -p gff sorted_atlas38_recoding.gff.gz
 
-## Prepare REDIportal annotations For REDItoolKnown.py ●
+##  ● Prepare REDIportal annotations For REDItoolKnown.py
 
 sort -k1,1 -k2,2n TABLE1_hg38_without.txt > sorted-TABLE1_hg38_without.txt
 
@@ -134,7 +134,7 @@ bgzip sorted-TABLE1_hg38_without.txt
 
 python2 ~/Apps/REDItools/main/REDItoolKnown.py -i STAR_Alignment/*.bam -f ~/Ref/GRCh38.p13.genome.fa -o ./known-edits -l ./sorted-TABLE1_hg38_without.txt.gz
 
-## Prepare splice sites annotations for REDItools ●
+##  ● Prepare splice sites annotations for REDItools
 
 https://github.com/juliangehring/GMAP-GSNAP
 
@@ -159,20 +159,20 @@ make install
 export PATH=/home/kosar/Apps/gmap-gsnap-2021-08-25:$PATh
 
 
-## If you have a GTF file, you can use the included programs gtf_splicesites and gtf_introns like this:
+### If you have a GTF file, you can use the included programs gtf_splicesites and gtf_introns like this:
 
 cat <gtf file> | /gmap-2021-08-25/util/gtf_splicesites > foo.splicesites
 
 cat <gtf file> | /gmap-2021-08-25/util/gtf_introns > foo.introns
 
 
-## Second, if you retrieve an alignment tracks from UCSC:
+### Second, if you retrieve an alignment tracks from UCSC:
 
  ftp://hgdownload.cse.ucsc.edu/goldenPath/hg18/database/ene.txt.gz
 
 ftp://hgdownload.cse.ucsc.edu/goldenPath/hg19/database/refGene.txt.gz
 
-# you can process this track using the included program psl_splicesites or psl_introns, like this:
+### you can process this track using the included program psl_splicesites or psl_introns, like this:
 
 gunzip -c refGene.txt.gz | /gmap-2021-08-25/util/psl_splicesites -s 1 > foo.splicesites
 
