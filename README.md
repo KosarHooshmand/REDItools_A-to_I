@@ -155,8 +155,12 @@ wget [GMAP-GSNAP](http://research-pub.gene.com/gmap/src/gmap-gsnap-2021-08-25.ta
 `mawk -F" " '{split($2,a,":"); split(a[2],b,"."); if (b[1]>b[3]) print a[1],b[3],b[1],toupper(substr($3,1,1)),"-"; else print a[1],b[1],b[3],toupper(substr($3,1,1)),"+"}' foo.splicesites > mysplicesites.ss`
 
 # :writing_hand: RNA Editing Detection 
+
+## 1a.Detect known RNA edit sites
+
+`python2 ~/Apps/REDItools/main/REDItoolKnown.py -i ../STAR_Alignment/*.bam -f ~/kosar/Ref/GRCh38.p13.genome.fa -o ./STARcheck -l Sorted-TABLE1_hg38.tab`
   
-## 1. Detect all potential DNA–RNA variants
+## 1b. Detect all potential DNA–RNA variants
 
 `python2 ~/Apps/REDItools/main/REDItoolDnaRna.py -i ../STAR_Alignment/*.bam -j ../BWA-mem2_Alignment/*.bam -o NEW_RNAEdits_picard -f ~/Ref/GRCh38.p13.genome.fa -t10 -c1,1 -m30,255 -v1 -q30,30 -e -n0.0 -N0.0 -u -l -p -s2 -g2 -S`
 
@@ -258,8 +262,8 @@ python2 ~/Apps/REDItools/accessory/readPsl.py reads.psl badreads.txt`
   
 `python2 ~/Apps/REDItools/main/REDItoolDnaRna.py -s 2 -g 2 -S -t 4 -i *_bed_dedup.bam -f .~/Ref/GRCh38.p13.genome.fa -c 10,10 -q 30,30 -m 255,255 -O 5,5 -p -u -a 11-6 -l -v 3 -n 0.1 -e -T pos.sorted.gff.gz -w ../Splicesites/mysplicesites.ss -R -k ../Genome_hg38/nochr -b badreads.txt --rmIndels -o second python2 ~/Apps/REDItools/main/REDItoolDnaRna.py -i ../STAR_Alignment/*.bam -j ../BWA-mem2_Alignment/*.bam -o NEW_RNAEdits_picard -f ~/Ref/GRCh38.p13.genome.fa -t10 -c1,1 -m30,255 -v1 -q30,30 -e -n0.0 -N0.0 -u -l -p -s2 -g2 -S` 
 
-## 18. ## Collect filtered ALU, REP NON ALU and NON REP sites:
-:heavy_exclamation_mark: Run the command in the directory which include the outputs related to Second, firstalu and knownEditing output per individual (sample).
+## 18. Collect filtered ALU, REP NON ALU and NON REP sites:
+:heavy_exclamation_mark: Run the command in the directory which include the outputs related to Second, firstalu and knownEditing.txt per individual (sample).
 
 `python2 ~/Apps/REDItools/NPscripts/collect_editing_candidates.py`
 
