@@ -1,12 +1,12 @@
 # REDItools-Installation
-git clone https://github.com/BioinfoUNIBA/REDItools
+git clone [REDItools](https://github.com/BioinfoUNIBA/REDItools)
 cd REDItools/
 python setup.py install
 
 # Installatoion of associated packages:
 ## Pblat installation. need to be version 0.6 and 0.7
 
-git clone https://github.com/icebert/pblat.git
+git clone [Pblat](https://github.com/icebert/pblat.git)
 
 cd pblat/
 
