@@ -1,8 +1,7 @@
 ## REDItools-Installation
-# Alternatively you can easily install the most updated REDItools package by the following commands:
-git clone https://github.com/BioinfoUNIBA/REDItools
-cd REDItools/
-python setup.py install
+# git clone https://github.com/BioinfoUNIBA/REDItools
+# cd REDItools/
+# python setup.py install
 
 ## Installatoion of associated packages:
 # Pblat installation. need to be version 0.6 and 0.7
