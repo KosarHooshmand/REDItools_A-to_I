@@ -1,6 +1,9 @@
 # REDItools-Installation
+
 git clone [REDItools](https://github.com/BioinfoUNIBA/REDItools)
+
 cd REDItools/
+
 python setup.py install
 
 # Installatoion of associated packages:
@@ -80,7 +83,7 @@ sort -k1,1 -k4,4n hg38-RefGene.gtf > Sorted-hg38-RefGene.gtf
 
 ##  ● Prepare RepeatMasker annotations for REDItools
 
-http://hgdownload.soe.ucsc.edu/goldenPath/hg38/database/rmsk.txt.gz
+wget http://hgdownload.soe.ucsc.edu/goldenPath/hg38/database/rmsk.txt.gz
 
 awk '{OFS="\t"} {print $6,"rmsk_hg38",$12,$7+1,$8,".",$10,".","gene_id \""$11"\"; transcript_id \""$13"\";"}' rmsk.txt > rmsk38.gtf
 
@@ -92,7 +95,7 @@ tabix -p gff rmsk38.sorted.gtf.gz
 
 ##  ● Prepare dbSNP annotations for REDItools
 
-http://hgdownload.soe.ucsc.edu/goldenPath/hg38/database/snp151.txt.gz
+wget http://hgdownload.soe.ucsc.edu/goldenPath/hg38/database/snp151.txt.gz
 
 awk '{OFS="\t"} {if ($11=="genomic" && $12=="single") print $2,"ucsc_snp151_hg38","snp",$4,$4,".",$7,".","gene_id \""$5"\"; transcript_id \""$5"\";"}' snp151.txt > snp151.gtf
 
@@ -104,7 +107,7 @@ tabix -p gff snp151.sorted.gtf.gz
 
 ##  ● Prepare REDIportal annotations for REDItools and extract recoding events
 
-http://srv00.recas.ba.infn.it/webshare/ATLAS/donwload/TABLE1_hg38.txt.gz
+wget http://srv00.recas.ba.infn.it/webshare/ATLAS/donwload/TABLE1_hg38.txt.gz
 
 ### remove the header:
 
@@ -132,15 +135,13 @@ sort -k1,1 -k2,2n TABLE1_hg38_without.txt > sorted-TABLE1_hg38_without.txt
 
 bgzip sorted-TABLE1_hg38_without.txt
 
-python2 ~/Apps/REDItools/main/REDItoolKnown.py -i STAR_Alignment/*.bam -f ~/Ref/GRCh38.p13.genome.fa -o ./known-edits -l ./sorted-TABLE1_hg38_without.txt.gz
-
 ##  ● Prepare splice sites annotations for REDItools
 
-https://github.com/juliangehring/GMAP-GSNAP
+[GMAP-GSNAP]( https://github.com/juliangehring/GMAP-GSNAP)
 
 In case GMAT is a typo, GMAP and GSNAP can be found here:
 
-http://research-pub.gene.com/gmap/
+[gmap](http://research-pub.gene.com/gmap/) 
 
 wget http://research-pub.gene.com/gmap/src/gmap-gsnap-2021-08-25.tar.gz
 
