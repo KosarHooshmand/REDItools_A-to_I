@@ -57,7 +57,7 @@ wget [bedtools](https://github.com/arq5x/bedtools2/releases/download/v2.28.0/bed
 `make`
 
 
-# :pushpin: Downloading and organizing required data
+# :file_folder: Downloading and organizing required data
 
 * Index the reference genome for REDItools
 
