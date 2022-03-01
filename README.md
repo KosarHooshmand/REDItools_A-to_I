@@ -266,7 +266,7 @@ python2 ~/Apps/REDItools/accessory/readPsl.py reads.psl badreads.txt`
 `python2 ~/Apps/REDItools/main/REDItoolDnaRna.py -s 2 -g 2 -S -t 4 -i *_bed_dedup.bam -f ~/Ref/GRCh38.p13.genome.fa -c 10,10 -q 30,30 -m 255,255 -O 5,5 -p -u -a 11-6 -l -v 3 -n 0.1 -e -T *-pos.sorted.gff.gz -w ../Splicesites/mysplicesites.ss -R -k ../Genome_hg38/nochr -b *-badreads.txt --rmIndels -o second`
 
 ### 18b. Collect filtered ALU, REP NON ALU and NON REP sites:
-:heavy_exclamation_mark: Run the command in the directory which include the outputs related to Second, firstalu and knownEditing per individual (sample).
+:heavy_exclamation_mark: Run the command in the directory which includes the outputs related to Second, firstalu and knownEditing per individual (sample).
 
 `python2 ~/Apps/REDItools/NPscripts/collect_editing_candidates.py`
 
