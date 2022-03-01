@@ -3,6 +3,8 @@
 A-to-I base modification successfully generates RNA and Protein diversity in higher eukaryotes, selectively reshaping coding and non-coding sequences in nuclear transcripts. [REDItools](https://github.com/BioinfoUNIBA/REDItools) package provides important comparative insights into the location and distribution of A-to-I RNA editing sites in healthy and disease state human tissues.
 
 # ⚙️Technologies & Tools
+
+![Anaconda](https://img.shields.io/badge/Anaconda-%2344A833.svg?style=for-the-badge&logo=anaconda&logoColor=white)
 ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)
 ![Shell Script](https://img.shields.io/badge/shell_script-%23121011.svg?style=for-the-badge&logo=gnu-bash&logoColor=white)
 ![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
