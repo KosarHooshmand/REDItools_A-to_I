@@ -259,7 +259,7 @@ python2 ~/Apps/REDItools/accessory/readPsl.py reads.psl badreads.txt`
 `~/Apps/samtools-1.9/samtools index *_bed_dedup.bam`
 
 ### 17b. Re-run REDItoolDnaRna.py on REP NON ALU and NON REP sites using stringent criteria, deduplicated reads and mis-mapping info:
-:heavy_exclamation_mark: Our bam files does not have the indels info so we need to remove --rmIndels from the command line
+:heavy_exclamation_mark: Our bam files does not have the indels info, so we need to remove --rmIndels from the command line.
 
 `python2 ~/Apps/REDItools/main/REDItoolDnaRna.py -s 2 -g 2 -S -t 4 -i *_bed_dedup.bam -f ~/Ref/GRCh38.p13.genome.fa -c 10,10 -q 30,30 -m 255,255 -O 5,5 -p -u -a 11-6 -l -v 3 -n 0.1 -e -T *-pos.sorted.gff.gz -w ../Splicesites/mysplicesites.ss -R -k ../Genome_hg38/nochr -b *-badreads.txt --rmIndels -o second`
 
