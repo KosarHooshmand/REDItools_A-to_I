@@ -151,7 +151,7 @@ wget [GMAP-GSNAP](http://research-pub.gene.com/gmap/src/gmap-gsnap-2021-08-25.ta
 `mawk -F" " '{split($2,a,":"); split(a[2],b,"."); if (b[1]>b[3]) print a[1],b[3],b[1],toupper(substr($3,1,1)),"-"; else print a[1],b[1],b[3],toupper(substr($3,1,1)),"+"}' foo.splicesites > mysplicesites.ss`
 
 
-# :writing_hand: RNA Editing Detection 
+# :mag_right: RNA Editing Detection 
 
 ### 1a.Detect known RNA edit sites
 
