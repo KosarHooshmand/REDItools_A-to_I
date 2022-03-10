@@ -159,7 +159,7 @@ wget [GMAP-GSNAP](http://research-pub.gene.com/gmap/src/gmap-gsnap-2021-08-25.ta
 
 # :mag_right: RNA Editing Detection 
 
-### 1a.Detect known RNA edit sites
+### 1a. Detect known RNA edit sites
 
 `python2 ~/Apps/REDItools/main/REDItoolKnown.py -i ../STAR_Alignment/*_marked_duplicates.bam -f ~/kosar/Ref/GRCh38.p13.genome.fa -o ./STARcheck -l Sorted-TABLE1_hg38.tab`
   
