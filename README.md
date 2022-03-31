@@ -198,6 +198,7 @@ wget [GMAP-GSNAP](http://research-pub.gene.com/gmap/src/gmap-gsnap-2021-08-25.ta
 `head -1 Table_443931662.rmsk.snp.sel2 | cat - Table_443931662.out.rmsk.snp.nonrep > Table_443931662.out.rmsk.snp.nonrep.out`
 
 ### 8a. Annotate ALU, REP NON ALU and NON REP sites using known editing events from REDIportal:
+:heavy_exclamation_mark: In case of any error You might need to change pysam version from 0.17 to 0.7.7
 
 `python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a ../REDIPortal/sorted_atlas38.gtf.gz -n ed -k R -c 1 -i Table_443931662.rmsk.snp.alu.out -o Table_443931662.out.rmsk.snp.alu.ed -u`
 
