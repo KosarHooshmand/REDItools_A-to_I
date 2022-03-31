@@ -148,7 +148,7 @@ wget [GMAP-GSNAP](http://research-pub.gene.com/gmap/src/gmap-gsnap-2021-08-25.ta
 `export PATH=~/Apps/gmap-gsnap-2021-08-25:$PATh`
 
 
-### If you have a GTF file, you can use the included programs gtf_splicesites and gtf_introns like this:
+* If you have a GTF file, you can use the included programs gtf_splicesites and gtf_introns like this:
 
 `cat <gtf file> | /gmap-2021-08-25/util/gtf_splicesites > foo.splicesites`
 
