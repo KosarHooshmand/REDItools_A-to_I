@@ -165,9 +165,9 @@ wget [GMAP-GSNAP](http://research-pub.gene.com/gmap/src/gmap-gsnap-2021-08-25.ta
   
 ### 2a. Annotate positions using RepeatMasker and dbSNP annotations:
 
-`python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a ../../RMSK/rmsk38.sorted.gtf.gz -n rmsk -i outTable_443931662.out -o Table_443931662.rmsk -u`
+`python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a ../RMSK/rmsk38.sorted.gtf.gz -n rmsk -i outTable_443931662.out -o Table_443931662.rmsk -u`
 
-`python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a ../../SNP151/snp151.sorted.gtf.gz -n snp151 -i Table_443931662.rmsk -o Table_443931662.rmsk.snp -u`
+`python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a ../SNP151/snp151.sorted.gtf.gz -n snp151 -i Table_443931662.rmsk -o Table_443931662.rmsk.snp -u`
 
 ### 3a. Create a first set of positions selecting sites supported by at least five RNAseq reads and a single mismatch:
 
@@ -199,16 +199,20 @@ wget [GMAP-GSNAP](http://research-pub.gene.com/gmap/src/gmap-gsnap-2021-08-25.ta
 
 ### 8a. Annotate ALU, REP NON ALU and NON REP sites using known editing events from REDIportal:
 
-`python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a ../../REDIPortal/sorted_atlas38.gtf.gz -n ed -k R -c 1 -i Table_443931662.rmsk.snp.alu.out -o Table_443931662.out.rmsk.snp.alu.ed -u`
+`python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a ../REDIPortal/sorted_atlas38.gtf.gz -n ed -k R -c 1 -i Table_443931662.rmsk.snp.alu.out -o Table_443931662.out.rmsk.snp.alu.ed -u`
 
-`python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a ../../REDIPortal/sorted_atlas38.gtf.gz -n ed -k R -c 1 -i Table_443931662.rmsk.snp.nonalu.out -o Table_443931662.out.rmsk.snp.nonalu.ed -u`
+`python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a ../REDIPortal/sorted_atlas38.gtf.gz -n ed -k R -c 1 -i Table_443931662.rmsk.snp.nonalu.out -o Table_443931662.out.rmsk.snp.nonalu.ed -u`
 
-`python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a ../../REDIPortal/sorted_atlas38.gtf.gz -n ed -k R -c 1 -i Table_443931662.rmsk.snp.nonrep.out -o Table_443931662.out.rmsk.snp.nonrep.ed -u`
+`python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a ../REDIPortal/sorted_atlas38.gtf.gz -n ed -k R -c 1 -i Table_443931662.rmsk.snp.nonrep.out -o Table_443931662.out.rmsk.snp.nonrep.ed -u`
 
 ### 9a. Merging Known editing events from ALU, REP NON ALU and NON REP sites:
 :heavy_exclamation_mark: It is based on your decision wether to merge the files for Differential Edit Analysis or do the analysis on each one of the outputs seperately
 
 `cat Table_443931662.rmsk.snp.alu Table_443931662.rmsk.snp.nonalu Table_443931662.rmsk.snp.nonrep > Table_443931662.alu-nonalu-nonrep`
+
+### 10a. Annotating REDItool tables (Gene symbols)
+
+`python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a .../Strand_detection/Sorted-hg38-RefGene.gtf.gz -i Table_443931662.alu-nonalu-nonrep -u -c 1,2 -n RefSeq -o Table_443931662.alu-nonalu-nonrep.txt`
 
 
 # 1b. Detect all potential DNA–RNA variants :wrench:
