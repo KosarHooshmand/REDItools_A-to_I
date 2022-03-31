@@ -163,7 +163,45 @@ wget [GMAP-GSNAP](http://research-pub.gene.com/gmap/src/gmap-gsnap-2021-08-25.ta
 
 `python2 ~/Apps/REDItools/main/REDItoolKnown.py -i ../STAR_Alignment/*_marked_duplicates.bam -f ~/kosar/Ref/GRCh38.p13.genome.fa -o ./STARcheck -l Sorted-TABLE1_hg38.tab`
   
-### 1b. Detect all potential DNA–RNA variants
+### 2a. Annotate positions using RepeatMasker and dbSNP annotations:
+
+`python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a ../../RMSK/rmsk38.sorted.gtf.gz -n rmsk -i outTable_443931662.out -o Table_443931662.rmsk -u`
+
+`python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a ../../SNP151/snp151.sorted.gtf.gz -n snp151 -i Table_443931662.out.out.rmsk -o Table_443931662.rmsk.snp -u`
+
+### 3a. Create a first set of positions selecting sites supported by at least five RNAseq reads and a single mismatch:
+
+`python2 ~/Apps/REDItools/accessory/selectPositions.py -i Table_443931662.rmsk.snp -c 5 -v 1 -f 0.0 -o Table_443931662.rmsk.snp.sel1`
+
+### 4a. Create a second set of positions selecting sites supported by ≥10 RNAseq reads, three mismatches and minimum editing frequency of 0.1:
+
+`python2 ~/Apps/REDItools/accessory/selectPositions.py -i Table_443931662.rmsk.snp -c 10 -v 3 -f 0.1 -o Table_443931662.rmsk.snp.sel2`
+
+### 5a. Select ALU sites from the first set of positions:
+
+`awk '{FS="\t"} {if ($1!="chrM" && substr($11,1,3)=="Alu" && $12=="-"&& $8!="-") print}' Table_443931662.out.rmsk.snp.sel1 > Table_443931662.out.rmsk.snp.alu`
+
+### 6a. Select REP NON ALU sites from the second set of positions, excluding sites in Simple repeats or Low complexity regions:
+
+`awk '{FS="\t"} {if ($1!="chrM" && substr($11,1,3)!="Alu" && $10!="-" && $10!="Simple_repeat" && $10!="Low_complexity" && $12=="-" && $8!="-" && $9>=0.1) print}' Table_443931662.rmsk.snp.sel2 > Table_443931662.rmsk.snp.nonalu`
+
+### 7a. Select NON REP sites from the second set of positions:
+
+`awk 'BEGIN {FS="\t"} {if ($1!="chrM" && substr($11,1,3)!="Alu" && $10=="-" && $12=="-" && $8!="-" && $9>=0.1) print$0; next}' Table_443931662.rmsk.snp.sel2 > Table_443931662.rmsk.snp.nonrep`
+
+### 8a. Annotate ALU, REP NON ALU and NON REP sites using known editing events from REDIportal:
+
+`python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a ../../REDIPortal/sorted_atlas38.gtf.gz -n ed -k R -c 1 -i Table_443931662.rmsk.snp.alu -o Table_443931662.out.rmsk.snp.alu.ed -u`
+
+`python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a ../../REDIPortal/sorted_atlas38.gtf.gz -n ed -k R -c 1 -i Table_443931662.rmsk.snp.nonalu -o Table_443931662.out.rmsk.snp.nonalu.ed -u`
+
+`python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a ../../REDIPortal/sorted_atlas38.gtf.gz -n ed -k R -c 1 -i Table_443931662.rmsk.snp.nonrep -o Table_443931662.out.rmsk.snp.nonrep.ed -u`
+
+### 9a. Merging Known editing events from ALU, REP NON ALU and NON REP sites:
+`cat Table_443931662.rmsk.snp.alu Table_443931662.rmsk.snp.nonalu Table_443931662.rmsk.snp.nonrep > Table_443931662.alu-nonalu-nonrep`
+
+
+## 1b. Detect all potential DNA–RNA variants
 
 `python2 ~/Apps/REDItools/main/REDItoolDnaRna.py -i ../STAR_Alignment/*_marked_duplicates.bam -j ../BWA-mem2_Alignment/*_marked_duplicates.bam -o NEW_RNAEdits_picard -f ~/Ref/GRCh38.p13.genome.fa -t10 -c1,1 -m30,255 -v1 -q30,30 -e -n0.0 -N0.0 -u -l -p -s2 -g2 -S`
 
