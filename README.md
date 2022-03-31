@@ -189,7 +189,7 @@ wget [GMAP-GSNAP](http://research-pub.gene.com/gmap/src/gmap-gsnap-2021-08-25.ta
 
 `awk 'BEGIN {FS="\t"} {if ($1!="chrM" && substr($11,1,3)!="Alu" && $10=="-" && $12=="-" && $8!="-" && $9>=0.1) print$0; next}' Table_443931662.rmsk.snp.sel2 > Table_443931662.rmsk.snp.nonrep`
 
-:heavy_exclamation_mark: Out puts from steps 5, 6, and 7 will have no header information. In order to add header to the columns use command below:
+:heavy_exclamation_mark: Outputs from steps 5, 6, and 7 will have no header information. In order to add header to the columns use the command below:
 
 `head -1 Table_443931662.out.rmsk.snp.sel1 | cat - Table_443931662.out.rmsk.snp.alu > Table_443931662.out.rmsk.snp.alu.out`
 
