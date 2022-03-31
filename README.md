@@ -159,7 +159,7 @@ wget [GMAP-GSNAP](http://research-pub.gene.com/gmap/src/gmap-gsnap-2021-08-25.ta
 
 # :mag_right: RNA Editing Detection 
 
-# 1a. Detect known RNA edit sites
+# 1a. Detect known RNA edit sites :wrench:
 
 `python2 ~/Apps/REDItools/main/REDItoolKnown.py -i ../STAR_Alignment/*_marked_duplicates.bam -f ~/kosar/Ref/GRCh38.p13.genome.fa -o ./STARcheck -l Sorted-TABLE1_hg38.tab`
   
@@ -201,7 +201,7 @@ wget [GMAP-GSNAP](http://research-pub.gene.com/gmap/src/gmap-gsnap-2021-08-25.ta
 `cat Table_443931662.rmsk.snp.alu Table_443931662.rmsk.snp.nonalu Table_443931662.rmsk.snp.nonrep > Table_443931662.alu-nonalu-nonrep`
 
 
-# 1b. Detect all potential DNA–RNA variants
+# 1b. Detect all potential DNA–RNA variants :wrench:
 
 `python2 ~/Apps/REDItools/main/REDItoolDnaRna.py -i ../STAR_Alignment/*_marked_duplicates.bam -j ../BWA-mem2_Alignment/*_marked_duplicates.bam -o NEW_RNAEdits_picard -f ~/Ref/GRCh38.p13.genome.fa -t10 -c1,1 -m30,255 -v1 -q30,30 -e -n0.0 -N0.0 -u -l -p -s2 -g2 -S`
 
