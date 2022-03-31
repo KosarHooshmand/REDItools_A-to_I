@@ -206,7 +206,7 @@ wget [GMAP-GSNAP](http://research-pub.gene.com/gmap/src/gmap-gsnap-2021-08-25.ta
 `python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a ../REDIPortal/sorted_atlas38.gtf.gz -n ed -k R -c 1 -i Table_443931662.rmsk.snp.nonrep.out -o Table_443931662.out.rmsk.snp.nonrep.ed -u`
 
 ### 9a. Merging Known editing events from ALU, REP NON ALU and NON REP sites:
-:heavy_exclamation_mark: It is based on your decision wether to merge the files for Differential Edit Analysis or do the analysis on each one of the outputs seperately
+:heavy_exclamation_mark: It is based on your decision whether to merge the files for Differential Edit Analysis or do the analysis on each one of the outputs separately
 
 `cat Table_443931662.rmsk.snp.alu Table_443931662.rmsk.snp.nonalu Table_443931662.rmsk.snp.nonrep > Table_443931662.alu-nonalu-nonrep`
 
