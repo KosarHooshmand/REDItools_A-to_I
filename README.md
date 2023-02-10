@@ -297,7 +297,9 @@ python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a ../REDIPortal/sorted_atla
   
 `awk '{FS="\t"} {if ($19!="ed") print}' nonalu-nonrep > pos.txt`
   
-`python2 ~/Apps/REDItools/accessory/TableToGFF.py -i pos.txt -s -t -o pos.gff`
+```python
+python2 ~/Apps/REDItools/accessory/TableToGFF.py -i pos.txt -s -t -o pos.gff
+```
 
 ### 12b. Convert editing candidates in ALU sites in GFF format for further filtering:
   
