@@ -16,7 +16,9 @@ A-to-I base modification successfully generates RNA and Protein diversity in hig
 
 git clone [REDItools](https://github.com/BioinfoUNIBA/REDItools)
 
-`cd REDItools/`
+```bash
+cd REDItools/
+```
 
 `python setup.py install`
 
