@@ -166,18 +166,23 @@ python2 ~/Apps/REDItools/main/REDItoolKnown.py -i ../STAR_Alignment/*_marked_dup
 ```
   
 ### 2a. Annotate positions using RepeatMasker and dbSNP annotations:
+```python
+python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a ../RMSK/rmsk38.sorted.gtf.gz -n rmsk -i outTable_443931662.out -o Table_443931662.rmsk -u
 
-`python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a ../RMSK/rmsk38.sorted.gtf.gz -n rmsk -i outTable_443931662.out -o Table_443931662.rmsk -u`
-
-`python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a ../SNP151/snp151.sorted.gtf.gz -n snp151 -i Table_443931662.rmsk -o Table_443931662.rmsk.snp -u`
+python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a ../SNP151/snp151.sorted.gtf.gz -n snp151 -i Table_443931662.rmsk -o Table_443931662.rmsk.snp -u
+```
 
 ### 3a. Create a first set of positions selecting sites supported by at least five RNAseq reads and a single mismatch:
 
-`python2 ~/Apps/REDItools/accessory/selectPositions.py -i Table_443931662.rmsk.snp -c 5 -v 1 -f 0.0 -o Table_443931662.rmsk.snp.sel1`
+```python
+python2 ~/Apps/REDItools/accessory/selectPositions.py -i Table_443931662.rmsk.snp -c 5 -v 1 -f 0.0 -o Table_443931662.rmsk.snp.sel1
+```
 
 ### 4a. Create a second set of positions selecting sites supported by ≥10 RNAseq reads, three mismatches and minimum editing frequency of 0.1:
 
-`python2 ~/Apps/REDItools/accessory/selectPositions.py -i Table_443931662.rmsk.snp -c 10 -v 3 -f 0.1 -o Table_443931662.rmsk.snp.sel2`
+```python
+python2 ~/Apps/REDItools/accessory/selectPositions.py -i Table_443931662.rmsk.snp -c 10 -v 3 -f 0.1 -o Table_443931662.rmsk.snp.sel2
+```
 
 ### 5a. Select ALU sites from the first set of positions:
 
@@ -202,11 +207,13 @@ python2 ~/Apps/REDItools/main/REDItoolKnown.py -i ../STAR_Alignment/*_marked_dup
 ### 8a. Annotate ALU, REP NON ALU and NON REP sites using known editing events from REDIportal:
 :heavy_exclamation_mark: In case of any error You might need to change pysam version from 0.17 to 0.7.7
 
-`python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a ../REDIPortal/sorted_atlas38.gtf.gz -n ed -k R -c 1 -i Table_443931662.rmsk.snp.alu.out -o Table_443931662.out.rmsk.snp.alu.ed -u`
+```python
+python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a ../REDIPortal/sorted_atlas38.gtf.gz -n ed -k R -c 1 -i Table_443931662.rmsk.snp.alu.out -o Table_443931662.out.rmsk.snp.alu.ed -u
 
-`python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a ../REDIPortal/sorted_atlas38.gtf.gz -n ed -k R -c 1 -i Table_443931662.rmsk.snp.nonalu.out -o Table_443931662.out.rmsk.snp.nonalu.ed -u`
+python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a ../REDIPortal/sorted_atlas38.gtf.gz -n ed -k R -c 1 -i Table_443931662.rmsk.snp.nonalu.out -o Table_443931662.out.rmsk.snp.nonalu.ed -u
 
-`python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a ../REDIPortal/sorted_atlas38.gtf.gz -n ed -k R -c 1 -i Table_443931662.rmsk.snp.nonrep.out -o Table_443931662.out.rmsk.snp.nonrep.ed -u`
+python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a ../REDIPortal/sorted_atlas38.gtf.gz -n ed -k R -c 1 -i Table_443931662.rmsk.snp.nonrep.out -o Table_443931662.out.rmsk.snp.nonrep.ed -u
+```
 
 ### 9a. Merging Known editing events from ALU, REP NON ALU and NON REP sites:
 :heavy_exclamation_mark: It is based on your decision whether to merge the files for Differential Edit Analysis or do the analysis on each one of the outputs separately
@@ -215,12 +222,16 @@ python2 ~/Apps/REDItools/main/REDItoolKnown.py -i ../STAR_Alignment/*_marked_dup
 
 ### 10a. Annotating REDItool tables (Gene symbols)
 
-`python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a .../Strand_detection/Sorted-hg38-RefGene.gtf.gz -i Table_443931662.alu-nonalu-nonrep -u -c 1,2 -n RefSeq -o Table_443931662.alu-nonalu-nonrep.txt`
+```python
+python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a .../Strand_detection/Sorted-hg38-RefGene.gtf.gz -i Table_443931662.alu-nonalu-nonrep -u -c 1,2 -n RefSeq -o Table_443931662.alu-nonalu-nonrep.txt
+```
 
 
 # 1b. Detect all potential DNA–RNA variants :wrench:
 
-`python2 ~/Apps/REDItools/main/REDItoolDnaRna.py -i ../STAR_Alignment/*_marked_duplicates.bam -j ../BWA-mem2_Alignment/*_marked_duplicates.bam -o NEW_RNAEdits_picard -f ~/Ref/GRCh38.p13.genome.fa -t10 -c1,1 -m30,255 -v1 -q30,30 -e -n0.0 -N0.0 -u -l -p -s2 -g2 -S`
+```python
+python2 ~/Apps/REDItools/main/REDItoolDnaRna.py -i ../STAR_Alignment/*_marked_duplicates.bam -j ../BWA-mem2_Alignment/*_marked_duplicates.bam -o NEW_RNAEdits_picard -f ~/Ref/GRCh38.p13.genome.fa -t10 -c1,1 -m30,255 -v1 -q30,30 -e -n0.0 -N0.0 -u -l -p -s2 -g2 -S
+```
 
 ### 2b. Exclude invariant positions as well as positions not supported by ≥10 WGS reads:
 
@@ -228,17 +239,23 @@ python2 ~/Apps/REDItools/main/REDItoolKnown.py -i ../STAR_Alignment/*_marked_dup
 
 ### 3b. Annotate positions using RepeatMasker and dbSNP annotations:
 
-`python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a ../RMSK/rmsk38.sorted.gtf.gz -n rmsk -i outTable_443931662.out -o Table_443931662.out.out.rmsk -u`
+```python
+python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a ../RMSK/rmsk38.sorted.gtf.gz -n rmsk -i outTable_443931662.out -o Table_443931662.out.out.rmsk -u
 
-`python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a ../SNP151/snp151.sorted.gtf.gz -n snp151 -i Table_443931662.out.out.rmsk -o Table_443931662.out.rmsk.snp -u`
+python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a ../SNP151/snp151.sorted.gtf.gz -n snp151 -i Table_443931662.out.out.rmsk -o Table_443931662.out.rmsk.snp -u
+```
 
 ### 4b. Create a first set of positions selecting sites supported by at least five RNAseq reads and a single mismatch:
 
-`python2 ~/Apps/REDItools/accessory/selectPositions.py -i Table_443931662.out.rmsk.snp -c 5 -v 1 -f 0.0 -o Table_443931662.out.rmsk.snp.sel1`
+```python
+python2 ~/Apps/REDItools/accessory/selectPositions.py -i Table_443931662.out.rmsk.snp -c 5 -v 1 -f 0.0 -o Table_443931662.out.rmsk.snp.sel1
+```
 
 ### 5b. Create a second set of positions selecting sites supported by ≥10 RNAseq reads, three mismatches and minimum editing frequency of 0.1:
 
-`python2 ~/Apps/REDItools/accessory/selectPositions.py -i Table_443931662.out.rmsk.snp -c 10 -v 3 -f 0.1 -o Table_443931662.out.rmsk.snp.sel2`
+```python
+python2 ~/Apps/REDItools/accessory/selectPositions.py -i Table_443931662.out.rmsk.snp -c 10 -v 3 -f 0.1 -o Table_443931662.out.rmsk.snp.sel2
+```
 
 ### 6b. Select ALU sites from the first set of positions:
   
@@ -254,11 +271,13 @@ python2 ~/Apps/REDItools/main/REDItoolKnown.py -i ../STAR_Alignment/*_marked_dup
 
 ### 9b. Annotate ALU, REP NON ALU and NON REP sites using known editing events from REDIportal:
   
-`python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a ../REDIPortal/sorted_atlas38.gtf.gz -n ed -k R -c 1 -i Table_443931662.out.rmsk.snp.alu -o Table_443931662.out.rmsk.snp.alu.ed -u`
-  
-`python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a ../REDIPortal/sorted_atlas38.gtf.gz -n ed -k R -c 1 -i Table_443931662.out.rmsk.snp.nonalu -o Table_443931662.out.rmsk.snp.nonalu.ed -u`
-  
-`python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a ../REDIPortal/sorted_atlas38.gtf.gz -n ed -k R -c 1 -i Table_443931662.out.rmsk.snp.nonrep -o Table_443931662.out.rmsk.snp.nonrep.ed -u`
+```python
+python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a ../REDIPortal/sorted_atlas38.gtf.gz -n ed -k R -c 1 -i Table_443931662.out.rmsk.snp.alu -o Table_443931662.out.rmsk.snp.alu.ed -u
+
+python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a ../REDIPortal/sorted_atlas38.gtf.gz -n ed -k R -c 1 -i Table_443931662.out.rmsk.snp.nonalu -o Table_443931662.out.rmsk.snp.nonalu.ed -u
+
+python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a ../REDIPortal/sorted_atlas38.gtf.gz -n ed -k R -c 1 -i Table_443931662.out.rmsk.snp.nonrep -o Table_443931662.out.rmsk.snp.nonrep.ed -u
+```
 
 ### 10b. Extract known editing events from ALU, REP NON ALU and NON REP sites:
   
@@ -284,20 +303,29 @@ python2 ~/Apps/REDItools/main/REDItoolKnown.py -i ../STAR_Alignment/*_marked_dup
   
 `awk '{FS="\t"} {if ($19!="ed") print}' alu > posalu.txt`
 
-`python2 ~/Apps/REDItools/accessory/TableToGFF.py -i posalu.txt -s -t -o posalu.gff`
+```python
+python2 ~/Apps/REDItools/accessory/TableToGFF.py -i posalu.txt -s -t -o posalu.gff
+```
 
 ### 13b. Launch REDItoolDnaRna.py on ALU sites using stringent criteria to recover potential editing candidates:
 
-`python2.7 ~/Apps/REDItools/main/REDItoolDnaRna.py -s 2 -g 2 -S -t 4 -i ../STAR_Alignment/*_marked_duplicates.bam -f ~/Ref/GRCh38.p13.genome.fa -c 5,5 -q 30,30 -m255,255 -O 5,5 -p -u -a 11-6 -l -v 1 -n 0.0 -e -T *-posalu.sorted.gff.gz -w  ../Splicesites/mysplicesites.ss -k ../Genome_hg38/nochr -R -o firstalu`
+```python
+python2.7 ~/Apps/REDItools/main/REDItoolDnaRna.py -s 2 -g 2 -S -t 4 -i ../STAR_Alignment/*_marked_duplicates.bam -f ~/Ref/GRCh38.p13.genome.fa -c 5,5 -q 30,30 -m255,255 -O 5,5 -p -u -a 11-6 -l -v 1 -n 0.0 -e -T *-posalu.sorted.gff.gz -w  ../Splicesites/mysplicesites.ss -k ../Genome_hg38/nochr -R -o firstalu
+```
 
 ### 14b. Launch REDItoolDnaRna.py on REP NON ALU and NON REP sites using stringent criteria to recover RNAseq reads harboring reference mismatches:
   
-`python2.7 ~/Apps/REDItools/main/REDItoolDnaRna.py -s 2 -g 2 -S -t 4 -i ../STAR_Alignment/*_marked_duplicates.bam -f ~/Ref/GRCh38.p13.genome.fa -c 10,10 -q 30,30 -m 255,255 -O 5,5 -p -u -a 11-6 -l -v 3 -n 0.1 -e -T *-pos.sorted.gff.gz -w ../Splicesites/mysplicesites.sss -k ../Genome_hg38/nochr --reads -R --addP -o first`
+```python
+python2.7 ~/Apps/REDItools/main/REDItoolDnaRna.py -s 2 -g 2 -S -t 4 -i ../STAR_Alignment/*_marked_duplicates.bam -f ~/Ref/GRCh38.p13.genome.fa -c 10,10 -q 30,30 -m 255,255 -O 5,5 -p -u -a 11-6 -l -v 3 -n 0.1 -e -T *-pos.sorted.gff.gz -w ../Splicesites/mysplicesites.sss -k ../Genome_hg38/nochr --reads -R --addP -o first
+```
 
 ### 15b. Launch pblat on RNAseq reads harboring reference mismatches from Step 22 and select multi-mapping reads:
   
-`~/Apps/pblat/pblat -t=dna -q=rna -stepSize=5 -repMatch=2253 -minScore=20 -minIdentity=0 ~/Ref/GRCh38.p13.genome.fa first/DnaRna_51144481/outReads_51144481 reads.psl
-python2 ~/Apps/REDItools/accessory/readPsl.py reads.psl badreads.txt`
+`~/Apps/pblat/pblat -t=dna -q=rna -stepSize=5 -repMatch=2253 -minScore=20 -minIdentity=0 ~/Ref/GRCh38.p13.genome.fa first/DnaRna_51144481/outReads_51144481 reads.psl'
+
+```python
+python2 ~/Apps/REDItools/accessory/readPsl.py reads.psl badreads.txt
+```
 
 ### 16b. Extract RNAseq reads harboring reference mismatches from Step 14 and remove duplicates:
   
@@ -318,11 +346,15 @@ python2 ~/Apps/REDItools/accessory/readPsl.py reads.psl badreads.txt`
 ### 17b. Re-run REDItoolDnaRna.py on REP NON ALU and NON REP sites using stringent criteria, deduplicated reads and mis-mapping info:
 :heavy_exclamation_mark: Our bam files does not have the indels info, so we need to remove --rmIndels from the command line.
 
-`python2 ~/Apps/REDItools/main/REDItoolDnaRna.py -s 2 -g 2 -S -t 4 -i *_bed_dedup.bam -f ~/Ref/GRCh38.p13.genome.fa -c 10,10 -q 30,30 -m 255,255 -O 5,5 -p -u -a 11-6 -l -v 3 -n 0.1 -e -T *-pos.sorted.gff.gz -w ../Splicesites/mysplicesites.ss -R -k ../Genome_hg38/nochr -b *-badreads.txt --rmIndels -o second`
+```python
+python2 ~/Apps/REDItools/main/REDItoolDnaRna.py -s 2 -g 2 -S -t 4 -i *_bed_dedup.bam -f ~/Ref/GRCh38.p13.genome.fa -c 10,10 -q 30,30 -m 255,255 -O 5,5 -p -u -a 11-6 -l -v 3 -n 0.1 -e -T *-pos.sorted.gff.gz -w ../Splicesites/mysplicesites.ss -R -k ../Genome_hg38/nochr -b *-badreads.txt --rmIndels -o second
+```
 
 ### 18b. Collect filtered ALU, REP NON ALU and NON REP sites:
 :heavy_exclamation_mark: Run the command in the directory which includes the outputs related to Second, firstalu and knownEditing per individual (sample).
 
-`python2 ~/Apps/REDItools/NPscripts/collect_editing_candidates.py`
+```python
+python2 ~/Apps/REDItools/NPscripts/collect_editing_candidates.py
+```
 
 `sort -k1,1 -k2,2n editing.txt > editing_sorted.txt`
