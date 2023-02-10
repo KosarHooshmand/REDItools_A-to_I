@@ -50,106 +50,97 @@ make
 
 wget [bcftools](https://github.com/samtools/bcftools/releases/download/1.9/bcftools-1.9.tar.bz2) 
 
-`tar -vxjf bcftools-1.9.tar.bz2`
-
-`cd bcftools-1.9`
-
-`make`
+```bash
+tar -vxjf bcftools-1.9.tar.bz2
+cd bcftools-1.9
+make
+```
 
 * bedtools version 2.28.0 installation
 
 wget [bedtools](https://github.com/arq5x/bedtools2/releases/download/v2.28.0/bedtools-2.28.0.tar.gz)
 
-`tar -zxvf bedtools-2.28.0.tar.gz`
-
-`cd bedtools2`
-
-`make`
+```bash'
+tar -zxvf bedtools-2.28.0.tar.gz
+cd bedtools2
+make
+```
 
 
 # :file_folder: Downloading and organizing required data
 
 * Index the reference genome for REDItools
 
-`~/Apps/samtools-1.9/samtools faidx ~/Ref/GRCh38.p13.genome.fa`
+```bash
+~/Apps/samtools-1.9/samtools faidx ~/Ref/GRCh38.p13.genome.fa
+```
 
 * Create the nochr file for REDItools
 
-`grep ">" ~/Ref/GRCh38.p13.genome.fa  | awk '{if (substr($1,1,3)==">GL") print $2}' > nochr1`
+```bash
+grep ">" ~/Ref/GRCh38.p13.genome.fa  | awk '{if (substr($1,1,3)==">GL") print $2}' > nochr1
+```
 
 * Download and unzip hg38 RefSeq annotations in .bed format for strand detection
 
+```bash
 wget -c -O [RefSeq](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/database/refGene.txt.gz)
-
-`gunzip hg38.refGene.txt.gz`
-
-`conda install -c bioconda ucsc-genepredtogtf`
-
-`cut -f 2- hg38.refGene.txt | genePredToGtf -utr -source=hg38_refseq file stdin hg38-RefGene.gtf`
-
-`sort -k1,1 -k4,4n hg38-RefGene.gtf > Sorted-hg38-RefGene.gtf`
+gunzip hg38.refGene.txt.gz
+conda install -c bioconda ucsc-genepredtogtf
+cut -f 2- hg38.refGene.txt | genePredToGtf -utr -source=hg38_refseq file stdin hg38-RefGene.gtf
+sort -k1,1 -k4,4n hg38-RefGene.gtf > Sorted-hg38-RefGene.gtf
+```
 
 * Prepare RepeatMasker annotations for REDItools
 
+```bash
 wget [rmsk](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/database/rmsk.txt.gz)
-
-`awk '{OFS="\t"} {print $6,"rmsk_hg38",$12,$7+1,$8,".",$10,".","gene_id \""$11"\"; transcript_id \""$13"\";"}' rmsk.txt > rmsk38.gtf`
-
-`sort -k1,1 -k4,4n rmsk38.gtf > rmsk38.sorted.gtf`
-
-`bgzip rmsk38.sorted.gtf`
-
-`tabix -p gff rmsk38.sorted.gtf.gz`
+awk '{OFS="\t"} {print $6,"rmsk_hg38",$12,$7+1,$8,".",$10,".","gene_id \""$11"\"; transcript_id \""$13"\";"}' rmsk.txt > rmsk38.gtf
+sort -k1,1 -k4,4n rmsk38.gtf > rmsk38.sorted.gtf
+bgzip rmsk38.sorted.gtf
+tabix -p gff rmsk38.sorted.gtf.gz
+```
 
 * Prepare dbSNP annotations for REDItools
 
+```bash
 wget [dbSNP](http://hgdownload.soe.ucsc.edu/goldenPath/hg38/database/snp151.txt.gz)
-
-`awk '{OFS="\t"} {if ($11=="genomic" && $12=="single") print $2,"ucsc_snp151_hg38","snp",$4,$4,".",$7,".","gene_id \""$5"\"; transcript_id \""$5"\";"}' snp151.txt > snp151.gtf`
-
-`sort -k1,1 -k4,4n snp151.gtf > snp151.sorted.gtf`
-
-`bgzip snp151.sorted.gtf`
-
-`tabix -p gff snp151.sorted.gtf.gz`
+awk '{OFS="\t"} {if ($11=="genomic" && $12=="single") print $2,"ucsc_snp151_hg38","snp",$4,$4,".",$7,".","gene_id \""$5"\"; transcript_id \""$5"\";"}' snp151.txt > snp151.gtf
+sort -k1,1 -k4,4n snp151.gtf > snp151.sorted.gtf
+bgzip snp151.sorted.gtf
+tabix -p gff snp151.sorted.gtf.gz
+```
 
 * Prepare REDIportal annotations for REDItools and extract recoding events
 
+```bash
 wget [REDIprotal](http://srv00.recas.ba.infn.it/webshare/ATLAS/donwload/TABLE1_hg38.txt.gz)
-
-`tail -n +2 TABLE1_hg38.txt > TABLE1_hg38_without.txt`
-
-`awk '{OFS="\t"} {sum+=1; print $1,"rediportal","ed",$2,$2,".",$5,".","gene_id \""sum"\"; transcript_id\""sum"\";"}' TABLE1_hg38_without.txt > atlas38.gtf`
-
-`sort -V -k1,1 -k4,4n atlas38.gtf > sorted_atlas38.gtf`
-
-`bgzip sorted_atlas38.gtf`
-
-`tabix -p gff sorted_atlas38.gtf.gz`
+tail -n +2 TABLE1_hg38.txt > TABLE1_hg38_without.txt
+awk '{OFS="\t"} {sum+=1; print $1,"rediportal","ed",$2,$2,".",$5,".","gene_id \""sum"\"; transcript_id\""sum"\";"}' TABLE1_hg38_without.txt > atlas38.gtf
+sort -V -k1,1 -k4,4n atlas38.gtf > sorted_atlas38.gtf
+bgzip sorted_atlas38.gtf
+tabix -p gff sorted_atlas38.gtf.gz
+```
 
 * Prepare REDIportal annotations For REDItoolKnown.py
 
-`sort -k1,1 -k2,2n TABLE1_hg38_without.txt > sorted-TABLE1_hg38_without.txt`
-
-`bgzip sorted-TABLE1_hg38_without.txt`
+```bash
+sort -k1,1 -k2,2n TABLE1_hg38_without.txt > sorted-TABLE1_hg38_without.txt
+bgzip sorted-TABLE1_hg38_without.txt
+```
 
 * Prepare splice sites annotations for REDItools
 
+```bash
 wget [GMAP-GSNAP](http://research-pub.gene.com/gmap/src/gmap-gsnap-2021-08-25.tar.gz)
-
-`tar -xvzf gmap-gsnap-2021-08-25.tar.gz`
-
-`cd gmap-gsnap-2021-08-25`
-
-`./configure --prefix ~/Apps`
-
-`make`
-
-`make check`
-
-`make install`
-
-`export PATH=~/Apps/gmap-gsnap-2021-08-25:$PATh`
+tar -xvzf gmap-gsnap-2021-08-25.tar.gz
+cd gmap-gsnap-2021-08-25
+./configure --prefix ~/Apps
+make
+make check
+make install
+export PATH=~/Apps/gmap-gsnap-2021-08-25:$PATh
+```
 
 
 * If you have a GTF file, you can use the included programs gtf_splicesites and gtf_introns like this:
