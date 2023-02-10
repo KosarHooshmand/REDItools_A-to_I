@@ -145,11 +145,11 @@ export PATH=~/Apps/gmap-gsnap-2021-08-25:$PATh
 
 * If you have a GTF file, you can use the included programs gtf_splicesites and gtf_introns like this:
 
-`cat <gtf file> | /gmap-2021-08-25/util/gtf_splicesites > foo.splicesites`
-
-`cat <gtf file> | /gmap-2021-08-25/util/gtf_introns > foo.introns`
-
-`mawk -F" " '{split($2,a,":"); split(a[2],b,"."); if (b[1]>b[3]) print a[1],b[3],b[1],toupper(substr($3,1,1)),"-"; else print a[1],b[1],b[3],toupper(substr($3,1,1)),"+"}' foo.splicesites > mysplicesites.ss`
+```bash
+cat <gtf file> | /gmap-2021-08-25/util/gtf_splicesites > foo.splicesites
+cat <gtf file> | /gmap-2021-08-25/util/gtf_introns > foo.introns
+mawk -F" " '{split($2,a,":"); split(a[2],b,"."); if (b[1]>b[3]) print a[1],b[3],b[1],toupper(substr($3,1,1)),"-"; else print a[1],b[1],b[3],toupper(substr($3,1,1)),"+"}' foo.splicesites > mysplicesites.ss
+```
 
 
 # :mag_right: RNA Editing Detection 
@@ -181,23 +181,29 @@ python2 ~/Apps/REDItools/accessory/selectPositions.py -i Table_443931662.rmsk.sn
 
 ### 5a. Select ALU sites from the first set of positions:
 
-`awk '{FS="\t"} {if ($1!="chrM" && substr($11,1,3)=="Alu" && $12=="-"&& $8!="-") print}' Table_443931662.out.rmsk.snp.sel1 > Table_443931662.out.rmsk.snp.alu`
+```bash
+awk '{FS="\t"} {if ($1!="chrM" && substr($11,1,3)=="Alu" && $12=="-"&& $8!="-") print}' Table_443931662.out.rmsk.snp.sel1 > Table_443931662.out.rmsk.snp.alu
+```
 
 ### 6a. Select REP NON ALU sites from the second set of positions, excluding sites in Simple repeats or Low complexity regions:
 
-`awk '{FS="\t"} {if ($1!="chrM" && substr($11,1,3)!="Alu" && $10!="-" && $10!="Simple_repeat" && $10!="Low_complexity" && $12=="-" && $8!="-" && $9>=0.1) print}' Table_443931662.rmsk.snp.sel2 > Table_443931662.rmsk.snp.nonalu`
+```bash
+awk '{FS="\t"} {if ($1!="chrM" && substr($11,1,3)!="Alu" && $10!="-" && $10!="Simple_repeat" && $10!="Low_complexity" && $12=="-" && $8!="-" && $9>=0.1) print}' Table_443931662.rmsk.snp.sel2 > Table_443931662.rmsk.snp.nonalu
+```
 
 ### 7a. Select NON REP sites from the second set of positions:
 
-`awk 'BEGIN {FS="\t"} {if ($1!="chrM" && substr($11,1,3)!="Alu" && $10=="-" && $12=="-" && $8!="-" && $9>=0.1) print$0; next}' Table_443931662.rmsk.snp.sel2 > Table_443931662.rmsk.snp.nonrep`
+```bash
+awk 'BEGIN {FS="\t"} {if ($1!="chrM" && substr($11,1,3)!="Alu" && $10=="-" && $12=="-" && $8!="-" && $9>=0.1) print$0; next}' Table_443931662.rmsk.snp.sel2 > Table_443931662.rmsk.snp.nonrep
+```
 
 :heavy_exclamation_mark: Outputs from steps 5, 6, and 7 will have no header information. In order to add header to the columns use the command below:
 
-`head -1 Table_443931662.out.rmsk.snp.sel1 | cat - Table_443931662.out.rmsk.snp.alu > Table_443931662.out.rmsk.snp.alu.out`
-
-`head -1 Table_443931662.rmsk.snp.sel2 | cat - Table_443931662.out.rmsk.snp.nonalu > Table_443931662.out.rmsk.snp.nonal.out`
-
-`head -1 Table_443931662.rmsk.snp.sel2 | cat - Table_443931662.out.rmsk.snp.nonrep > Table_443931662.out.rmsk.snp.nonrep.out`
+```bash
+head -1 Table_443931662.out.rmsk.snp.sel1 | cat - Table_443931662.out.rmsk.snp.alu > Table_443931662.out.rmsk.snp.alu.out
+head -1 Table_443931662.rmsk.snp.sel2 | cat - Table_443931662.out.rmsk.snp.nonalu > Table_443931662.out.rmsk.snp.nonal.out
+head -1 Table_443931662.rmsk.snp.sel2 | cat - Table_443931662.out.rmsk.snp.nonrep > Table_443931662.out.rmsk.snp.nonrep.out
+```
 
 ### 8a. Annotate ALU, REP NON ALU and NON REP sites using known editing events from REDIportal:
 :heavy_exclamation_mark: In case of any error You might need to change pysam version from 0.17 to 0.7.7
@@ -213,7 +219,9 @@ python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a ../REDIPortal/sorted_atla
 ### 9a. Merging Known editing events from ALU, REP NON ALU and NON REP sites:
 :heavy_exclamation_mark: It is based on your decision whether to merge the files for Differential Edit Analysis or do the analysis on each one of the outputs separately
 
-`cat Table_443931662.rmsk.snp.alu Table_443931662.rmsk.snp.nonalu Table_443931662.rmsk.snp.nonrep > Table_443931662.alu-nonalu-nonrep`
+```bash
+cat Table_443931662.rmsk.snp.alu Table_443931662.rmsk.snp.nonalu Table_443931662.rmsk.snp.nonrep > Table_443931662.alu-nonalu-nonrep
+```
 
 ### 10a. Annotating REDItool tables (Gene symbols)
 
@@ -230,7 +238,9 @@ python2 ~/Apps/REDItools/main/REDItoolDnaRna.py -i ../STAR_Alignment/*_marked_du
 
 ### 2b. Exclude invariant positions as well as positions not supported by ≥10 WGS reads:
 
-  `awk '{FS="\t"} {if ($8!="-" && $10>=10 && $13=="-") print}' outTable_443931662 > outTable_443931662.out`
+```bash
+awk '{FS="\t"} {if ($8!="-" && $10>=10 && $13=="-") print}' outTable_443931662 > outTable_443931662.out
+```
 
 ### 3b. Annotate positions using RepeatMasker and dbSNP annotations:
 
@@ -254,15 +264,21 @@ python2 ~/Apps/REDItools/accessory/selectPositions.py -i Table_443931662.out.rms
 
 ### 6b. Select ALU sites from the first set of positions:
   
-`awk '{FS="\t"} {if ($1!="chrM" && substr($16,1,3)=="Alu" && $17=="-"&& $8!="-" && $10>=10 && $13=="-") print}' Table_443931662.out.rmsk.snp.sel1 > Table_443931662.out.rmsk.snp.alu`
+```bash
+awk '{FS="\t"} {if ($1!="chrM" && substr($16,1,3)=="Alu" && $17=="-"&& $8!="-" && $10>=10 && $13=="-") print}' Table_443931662.out.rmsk.snp.sel1 > Table_443931662.out.rmsk.snp.alu
+```
 
 ### 7b. Select REP NON ALU sites from the second set of positions, excluding sites in Simple repeats or Low complexity regions:
 
-`awk '{FS="\t"} {if ($1!="chrM" && substr($16,1,3)!="Alu" && $15!="-" && $15!="Simple_repeat" && $15!="Low_complexity" && $17=="-" && $8!="-" && $10>=10 && $14<=0.05 && $9>=0.1) print}' Table_443931662.out.rmsk.snp.sel2 > Table_443931662.out.rmsk.snp.nonalu`
+```bash
+awk '{FS="\t"} {if ($1!="chrM" && substr($16,1,3)!="Alu" && $15!="-" && $15!="Simple_repeat" && $15!="Low_complexity" && $17=="-" && $8!="-" && $10>=10 && $14<=0.05 && $9>=0.1) print}' Table_443931662.out.rmsk.snp.sel2 > Table_443931662.out.rmsk.snp.nonalu
+```
 
 ### 8b. Select NON REP sites from the second set of positions:
 
-`awk '{FS="\t"} {if ($1!="chrM" && substr($16,1,3)!="Alu" && $15=="-" && $17=="-" && $8!="-" && $10>=10 && $14<=0.05 && $9>=0.1) print}' Table_443931662.out.rmsk.snp.sel2 > Table_443931662.out.rmsk.snp.nonrep`
+```bash
+awk '{FS="\t"} {if ($1!="chrM" && substr($16,1,3)!="Alu" && $15=="-" && $17=="-" && $8!="-" && $10>=10 && $14<=0.05 && $9>=0.1) print}' Table_443931662.out.rmsk.snp.sel2 > Table_443931662.out.rmsk.snp.nonrep
+```
 
 ### 9b. Annotate ALU, REP NON ALU and NON REP sites using known editing events from REDIportal:
   
@@ -276,21 +292,20 @@ python2 ~/Apps/REDItools/accessory/AnnotateTable.py -a ../REDIPortal/sorted_atla
 
 ### 10b. Extract known editing events from ALU, REP NON ALU and NON REP sites:
   
-`mv Table_443931662.out.rmsk.snp.alu.ed alu`
-  
-`mv Table_443931662.out.rmsk.snp.nonalu.ed nonalu`
-  
-`mv Table_443931662.out.rmsk.snp.nonrep.ed nonrep`
-  
-`cat alu nonalu nonrep > alu-nonalu-nonrep`
-  
-`awk '{FS="\t"} {if ($19=="ed") print}' alu-nonalu-nonrep > knownEditing`
+```bash
+mv Table_443931662.out.rmsk.snp.alu.ed alu
+mv Table_443931662.out.rmsk.snp.nonalu.ed nonalu
+mv Table_443931662.out.rmsk.snp.nonrep.ed nonrep
+cat alu nonalu nonrep > alu-nonalu-nonrep
+awk '{FS="\t"} {if ($19=="ed") print}' alu-nonalu-nonrep > knownEditing
+```
  
 ### 11b. Convert editing candidates in REP NON ALU and NON REP sites in GFF format for further filtering:
   
-`cat nonalu nonrep > nonalu-nonrep`
-  
-`awk '{FS="\t"} {if ($19!="ed") print}' nonalu-nonrep > pos.txt`
+```bash
+cat nonalu nonrep > nonalu-nonrep
+awk '{FS="\t"} {if ($19!="ed") print}' nonalu-nonrep > pos.txt
+```
   
 ```python
 python2 ~/Apps/REDItools/accessory/TableToGFF.py -i pos.txt -s -t -o pos.gff
@@ -298,7 +313,9 @@ python2 ~/Apps/REDItools/accessory/TableToGFF.py -i pos.txt -s -t -o pos.gff
 
 ### 12b. Convert editing candidates in ALU sites in GFF format for further filtering:
   
-`awk '{FS="\t"} {if ($19!="ed") print}' alu > posalu.txt`
+```bash
+awk '{FS="\t"} {if ($19!="ed") print}' alu > posalu.txt
+```
 
 ```python
 python2 ~/Apps/REDItools/accessory/TableToGFF.py -i posalu.txt -s -t -o posalu.gff
@@ -318,7 +335,9 @@ python2.7 ~/Apps/REDItools/main/REDItoolDnaRna.py -s 2 -g 2 -S -t 4 -i ../STAR_A
 
 ### 15b. Launch pblat on RNAseq reads harboring reference mismatches from Step 22 and select multi-mapping reads:
   
-`~/Apps/pblat/pblat -t=dna -q=rna -stepSize=5 -repMatch=2253 -minScore=20 -minIdentity=0 ~/Ref/GRCh38.p13.genome.fa first/DnaRna_51144481/outReads_51144481 reads.psl'
+```bash
+~/Apps/pblat/pblat -t=dna -q=rna -stepSize=5 -repMatch=2253 -minScore=20 -minIdentity=0 ~/Ref/GRCh38.p13.genome.fa first/DnaRna_51144481/outReads_51144481 reads.psl
+```
 
 ```python
 python2 ~/Apps/REDItools/accessory/readPsl.py reads.psl badreads.txt
@@ -326,19 +345,15 @@ python2 ~/Apps/REDItools/accessory/readPsl.py reads.psl badreads.txt
 
 ### 16b. Extract RNAseq reads harboring reference mismatches from Step 14 and remove duplicates:
   
-`sort -k1,1 -k2,2n -k3,3n first/DnaRna_51144481/outPosReads_51144481 | mergeBed > bed`
-  
-`~/Apps/samtools-1.9/samtools view -@ 4 -L bed -h -b ../STAR_Alignment/*_marked_duplicates.bam > *_bed.bam`
-  
-`~/Apps/samtools-1.9/samtools sort -@ 4 -n *_bed.bam -o *_bed_ns.bam`
-  
-`~/Apps/samtools-1.9/samtools fixmate -@ 4 -m *_bed_ns.bam *_bed_ns_fx.bam`
-  
-`~/Apps/samtools-1.9/samtools sort -@ 4 *_bed_ns_fx.bam -o *_bed_ns_fx_st.bam`
-  
-`~/Apps/samtools-1.9/samtools markdup -r -@ 4 *_bed_ns_fx_st.bam *_bed_dedup.bam`
-  
-`~/Apps/samtools-1.9/samtools index *_bed_dedup.bam`
+```bash
+sort -k1,1 -k2,2n -k3,3n first/DnaRna_51144481/outPosReads_51144481 | mergeBed > bed
+~/Apps/samtools-1.9/samtools view -@ 4 -L bed -h -b ../STAR_Alignment/*_marked_duplicates.bam > *_bed.bam
+~/Apps/samtools-1.9/samtools sort -@ 4 -n *_bed.bam -o *_bed_ns.bam
+~/Apps/samtools-1.9/samtools fixmate -@ 4 -m *_bed_ns.bam *_bed_ns_fx.bam
+~/Apps/samtools-1.9/samtools sort -@ 4 *_bed_ns_fx.bam -o *_bed_ns_fx_st.bam
+~/Apps/samtools-1.9/samtools markdup -r -@ 4 *_bed_ns_fx_st.bam *_bed_dedup.bam
+~/Apps/samtools-1.9/samtools index *_bed_dedup.bam
+```
 
 ### 17b. Re-run REDItoolDnaRna.py on REP NON ALU and NON REP sites using stringent criteria, deduplicated reads and mis-mapping info:
 :heavy_exclamation_mark: Our bam files does not have the indels info, so we need to remove --rmIndels from the command line.
@@ -354,4 +369,6 @@ python2 ~/Apps/REDItools/main/REDItoolDnaRna.py -s 2 -g 2 -S -t 4 -i *_bed_dedup
 python2 ~/Apps/REDItools/NPscripts/collect_editing_candidates.py
 ```
 
-`sort -k1,1 -k2,2n editing.txt > editing_sorted.txt`
+```bash
+sort -k1,1 -k2,2n editing.txt > editing_sorted.txt
+```
