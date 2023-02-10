@@ -18,31 +18,33 @@ git clone [REDItools](https://github.com/BioinfoUNIBA/REDItools)
 
 ```bash
 cd REDItools/
+python setup.py install
 ```
-
-`python setup.py install`
 
 * Pblat version 0.6 and 0.7 installation:
 
 git clone [Pblat](https://github.com/icebert/pblat.git)
 
-`cd pblat/`
-
-`make`
+```bashcd 
+cd pblat/
+make
+```
 
 * pysam version 0.17 installation:
 
-`pip install pysam==0.17`
+```bash
+pip install pysam==0.17
+```
 
 * samtools version 1.9 installation:
 
 wget [samtools](https://github.com/samtools/samtools/releases/download/1.9/samtools-1.9.tar.bz2) 
 
-`tar -vxjf samtools-1.9.tar.bz2`
-
-`cd samtools-1.9`
-
-`make`
+```bash
+tar -vxjf samtools-1.9.tar.bz2
+cd samtools-1.9
+make
+```
 
 * bcftools version 1.9 installation:
 
