@@ -25,7 +25,7 @@ python setup.py install
 
 git clone [Pblat](https://github.com/icebert/pblat.git)
 
-```bashcd 
+```bash 
 cd pblat/
 make
 ```
@@ -60,7 +60,7 @@ make
 
 wget [bedtools](https://github.com/arq5x/bedtools2/releases/download/v2.28.0/bedtools-2.28.0.tar.gz)
 
-```bash'
+```bash
 tar -zxvf bedtools-2.28.0.tar.gz
 cd bedtools2
 make
